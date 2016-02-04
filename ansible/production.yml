@@ -1,0 +1,16 @@
+---
+- hosts: all
+  remote_user: root
+  roles:
+    - common
+    - azavea.swapfile
+
+- hosts: production-db
+  remote_user: root
+  roles:
+    - postgresql
+
+- hosts: production-app
+  remote_user: root
+  roles:
+    - app-runner

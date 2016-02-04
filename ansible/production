@@ -1,0 +1,9 @@
+[production-app]
+178.62.104.169
+
+[production-db]
+178.62.104.169
+
+[production:children]
+production-app
+production-db
