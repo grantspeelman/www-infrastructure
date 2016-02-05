@@ -1,5 +1,5 @@
 - name: set RAILS_ENV in .bashrc
-  lineinfile: dest=/home/{{app_deploy_name}}/.bashrc insertafter="^# for examples" regexp="RAILS_ENV=" line="export RAILS_ENV=production.yml"
+  lineinfile: dest=/home/{{app_deploy_name}}/.bashrc insertafter="^# for examples" regexp="RAILS_ENV=" line="export RAILS_ENV=production"
 
 - name: set app enviroment variables
   lineinfile: dest=/home/my_grocery_price_book_www/.bashrc insertafter="^# for examples" regexp="{{ item.key }}=" line="export {{ item.key }}={{ item.value }}"
