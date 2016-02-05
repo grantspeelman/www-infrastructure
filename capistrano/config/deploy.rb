@@ -6,7 +6,7 @@ set :ssh_options, {forward_agent: true}
 set :application, 'my_grocery_price_book_www'
 set :repo_url, 'git@github.com:my-grocery-price-book/www.git'
 
-set :rails_env, 'production.yml'
+set :rails_env, 'production'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
