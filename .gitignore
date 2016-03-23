@@ -1,3 +1,4 @@
 .vagrant
 capistrano/.bundle/config
+capistrano/vendor/bundle
 ansible/group_vars/production.yml
