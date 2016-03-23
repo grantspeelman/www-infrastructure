@@ -2,6 +2,11 @@
   apt: name={{item}} state=present
   with_items:
     - cmake # for pronto
+    - nodejs # for pronto-eslint
+    - npm # for pronto-eslint
+
+- name: symlink nodejs to node
+  file: src=/usr/bin/nodejs dest=/usr/bin/node state=link
 
 - name: Install tool gems
   gem: name={{item}} state=present user_install=yes
@@ -13,6 +18,15 @@
     - pronto
     - pronto-rubocop
     - pronto-brakeman
+    - pronto-eslint
+
+- name: Install "eslint" node.js package globally.
+  npm: name={{item}} global=yes # for pronto-eslint
+  with_items:
+    - eslint
+    - eslint-config-standard
+    - eslint-plugin-standard
+    - eslint-plugin-react
 
 - name: add user gems path to .bashrc
   lineinfile: dest=/home/vagrant/.bashrc line="PATH=\"$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH\""
