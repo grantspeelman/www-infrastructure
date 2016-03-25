@@ -39,12 +39,10 @@ set :linked_files, fetch(:linked_files, []).push('config/database.yml')
 # set :keep_releases, 5
 
 namespace :deploy do
-  after :restart, :clear_cache do
-    after :migrate, :db_seed do
-      on roles(:db) do
-        within release_path do
-          execute :rake, 'db:seed'
-        end
+  after :migrate, :db_seed do
+    on roles(:db) do
+      within release_path do
+        execute :rake, 'db:seed'
       end
     end
   end
