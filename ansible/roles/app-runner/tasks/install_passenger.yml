@@ -33,6 +33,15 @@
 
 - name: link _passenger_site.conf to ngnix sites-enabled
   file: src=/etc/nginx/sites-available/{{app_deploy_name}}.conf dest=/etc/nginx/sites-enabled/{{app_deploy_name}}.conf owner=root group=root state=link
+  notify: nginx reload
+
+- name: add redirect conf to ngnix sites-available
+  template: src=etc/nginx/sites-available/_redirect.conf dest=/etc/nginx/sites-available/{{app_deploy_name}}_redirect.conf owner=root group=root mode=0644
+  notify: nginx reload
+
+- name: link _passenger_site.conf to ngnix sites-enabled
+  file: src=/etc/nginx/sites-available/{{app_deploy_name}}_redirect.conf dest=/etc/nginx/sites-enabled/{{app_deploy_name}}_redirect.conf owner=root group=root state=link
+  notify: nginx reload
 
 - name: add rails log logrotation for all rails log files
   template: src=etc/logrotate.d/_logrotate_conf dest=/etc/logrotate.d/{{app_deploy_name}} owner=root group=root mode=0644
