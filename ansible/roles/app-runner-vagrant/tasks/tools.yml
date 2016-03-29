@@ -31,6 +31,18 @@
 - name: add user gems path to .bashrc
   lineinfile: dest=/home/vagrant/.bashrc line="PATH=\"$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH\""
 
-- name: Install PhantomJS 1.9.8
+- name: installing phantomjs tool dependencies
+  apt: name={{item}} state=present
+  with_items:
+    - build-essential
+    - chrpath
+    - libssl-dev
+    - libxft-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - libfontconfig1
+    - libfontconfig1-dev
+
+- name: Install PhantomJS 2.1.1
   sudo: yes
   script: _scripts/install_phantomjs.sh creates=/usr/local/bin/phantomjs
