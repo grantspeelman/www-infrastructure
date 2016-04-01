@@ -38,11 +38,20 @@ set :linked_files, fetch(:linked_files, []).push('config/database.yml')
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+set :rollbar_user, Proc.new { ENV['USER'] || ENV['USERNAME'] }
+
 namespace :deploy do
   after :migrate, :db_seed do
     on roles(:db) do
       within release_path do
         execute :rake, 'db:seed'
+      end
+    end
+  end
+  after :finished, :rollbar_deploy do
+    on roles(:db) do
+      within release_path do
+        execute :rake, 'rollbar:deploy', "LOCAL_USER=#{rollbar_user}", "ROLLBAR_ENV=#{stage}", "REVISION=#{current_revision}"
       end
     end
   end
