@@ -51,7 +51,7 @@ namespace :deploy do
   after :finished, :rollbar_deploy do
     on roles(:db) do
       within release_path do
-        execute :rake, 'rollbar:deploy', "LOCAL_USER=#{rollbar_user}", "ROLLBAR_ENV=#{stage}", "REVISION=#{current_revision}"
+        execute :rake, 'rollbar:deploy', "LOCAL_USER=#{fetch :rollbar_user}", "ROLLBAR_ENV=#{fetch :stage}", "REVISION=#{fetch :current_revision}"
       end
     end
   end
