@@ -1,0 +1,28 @@
+- name: add APT key
+  become: true
+  apt_key: url=https://download.newrelic.com/548C16BF.gpg state=present
+  when: newrelic_sysmond.enabled
+
+- name: add repository
+  become: true
+  apt_repository: >
+    repo='deb http://apt.newrelic.com/debian/ newrelic non-free'
+    state=present
+  when: newrelic_sysmond.enabled
+
+- name: install package
+  become: true
+  apt: pkg=newrelic-sysmond
+  notify: restart newrelic-sysmond
+  when: newrelic_sysmond.enabled
+
+- name: generate config
+  become: true
+  template: >
+    src=nrsysmond.cfg.j2
+    dest=/etc/newrelic/nrsysmond.cfg
+    owner=root
+    group=newrelic
+    mode=0640
+  notify: restart newrelic-sysmond
+  when: newrelic_sysmond.enabled
