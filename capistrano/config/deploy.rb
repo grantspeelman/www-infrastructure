@@ -48,6 +48,13 @@ namespace :deploy do
       end
     end
   end
+  after :finished, :newrelic_deploy do
+    on roles(:db) do
+      within release_path do
+        execute :bundle, 'exec newrelic deployments', "--user=#{fetch :rollbar_user}", "--revision=#{fetch :current_revision}"
+      end
+    end
+  end
   after :finished, :rollbar_deploy do
     on roles(:db) do
       within release_path do
