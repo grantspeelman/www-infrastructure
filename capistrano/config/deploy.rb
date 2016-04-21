@@ -4,7 +4,7 @@ lock '3.4.0'
 set :ssh_options, {forward_agent: true}
 
 set :application, 'my_grocery_price_book_www'
-set :repo_url, 'git@github.com:my-grocery-price-book/www.git'
+set :repo_url, 'https://github.com/my-grocery-price-book/www.git'
 
 set :rails_env, 'production'
 
