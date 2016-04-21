@@ -16,13 +16,3 @@
 
 - name: Install Bundler
   gem: name=bundler user_install=no state=latest
-
-- name: installing gem dependencies
-  apt: name={{item}} state=present
-  with_items:
-    - build-essential
-    - libpq-dev
-    - libssl-dev
-    - postgresql-client
-    - g++
-    - git

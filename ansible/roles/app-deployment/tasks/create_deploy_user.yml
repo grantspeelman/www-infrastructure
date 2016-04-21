@@ -15,3 +15,6 @@
 
 - name: deploy bin directory
   file: path=/home/{{app_deploy_name}}/bin owner={{app_deploy_name}} group={{app_deploy_name}} mode=0755 state=directory
+
+- name: add rails log logrotation for all rails log files
+  template: src=etc/logrotate.d/_logrotate_conf dest=/etc/logrotate.d/{{app_deploy_name}} owner=root group=root mode=0644

@@ -11,5 +11,6 @@
   sudo: yes
   roles:
     - azavea.swapfile
+    - app-deployment
     - app-runner
     - app-runner-vagrant
