@@ -1,5 +1,5 @@
 - name: ensure github.com is a known host
-  sudo: no
+  become: no
   known_hosts:
     key: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
     host: "github.com"
@@ -8,14 +8,12 @@
 - include: mailcatcher.yml
 
 - name: bundle install
-  command:  bundle install
-  sudo: no
-  args:
-    chdir: /vagrant
+  bundler: state=present gemfile=/vagrant/Gemfile
+  become: no
 
 - name: load database.yml
   template: src=vagrant/config/database.yml dest=/vagrant/config/database.yml
-  sudo: no
+  become: no
   notify: rake db:setup
 
 - name: add dev.conf to ngnix sites-available
