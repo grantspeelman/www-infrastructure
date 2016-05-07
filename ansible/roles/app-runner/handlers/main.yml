@@ -9,4 +9,4 @@
   service: name=nginx state=reloaded
 
 - name: switch ruby
-  command: ruby-switch --set ruby2.2
+  command: ruby-switch --set ruby2.3

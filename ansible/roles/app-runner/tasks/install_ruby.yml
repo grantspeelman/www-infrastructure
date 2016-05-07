@@ -6,12 +6,12 @@
 - name: add brightbox ruby repo
   apt_repository: repo='ppa:brightbox/ruby-ng' update_cache=yes
 
-- name: Install ruby2.2 and ruby-switch
+- name: Install ruby2.3 and ruby-switch
   apt: name={{item}} state=present
   notify: switch ruby
   with_items:
-    - ruby2.2
-    - ruby2.2-dev
+    - ruby2.3
+    - ruby2.3-dev
     - ruby-switch
 
 - name: Install Bundler
