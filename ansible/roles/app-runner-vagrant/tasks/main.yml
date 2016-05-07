@@ -4,7 +4,9 @@
     key: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
     host: "github.com"
 
-- include: tools.yml
+- include: gem_tools.yml
+- include: node_tools.yml
+- include: phantomjs.yml
 - include: mailcatcher.yml
 
 - name: bundle install
