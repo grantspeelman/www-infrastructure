@@ -1,1 +1,1 @@
-server '178.62.104.169', user: 'my_grocery_price_book_www', roles: %w{app db web}
+server '139.59.168.29', user: 'my_grocery_price_book_www', roles: %w{app db web}

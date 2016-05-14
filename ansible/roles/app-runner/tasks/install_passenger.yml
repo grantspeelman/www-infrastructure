@@ -23,8 +23,8 @@
   replace: dest=/etc/nginx/nginx.conf regexp='#\spassenger_root' replace=passenger_root
   notify: nginx reload
 
-- name: set passenger_max_pool_size to 2
-  lineinfile: dest=/etc/nginx/nginx.conf insertafter="passenger_root" regexp="passenger_max_pool_size" line="passenger_max_pool_size 2;"
+- name: set passenger_max_pool_size to 3
+  lineinfile: dest=/etc/nginx/nginx.conf insertafter="passenger_root" regexp="passenger_max_pool_size" line="passenger_max_pool_size 3;"
   notify: nginx reload
 
 - name: add passenger conf to ngnix sites-available
