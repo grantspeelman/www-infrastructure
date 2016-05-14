@@ -1,5 +1,6 @@
 - include: create_deploy_user.yml
 - include: set_enviroment_variables.yml
+- include: setup_logging.yml
 
 - name: installing gem dependencies
   apt: name={{item}} state=present

@@ -5,6 +5,7 @@
     - common
     - azavea.swapfile
     - laggyluke.newrelic-sysmond
+    - loggly
 
 - hosts: production-db
   remote_user: root
