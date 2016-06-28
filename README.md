@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/my-grocery-price-book/www-infrastructure.png?label=ready&title=Ready)](https://waffle.io/my-grocery-price-book/www-infrastructure)
 # My Grocery Price Book infrastructure
 
 ## Provisioning
