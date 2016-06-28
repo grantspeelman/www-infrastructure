@@ -1,10 +1,11 @@
 ---
 - hosts: all
+  sudo: yes
   roles:
     # - postgresql
     # - postgresql-vagrant
+    # - common
     - loggly
-    - common
     - app-deployment
     - app-runner
     - app-runner-vagrant
