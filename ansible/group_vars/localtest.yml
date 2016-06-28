@@ -1,0 +1,15 @@
+# this is for vagrant
+server_name: "www.example.com"
+redirect_server_name: "example.com"
+app_host: '139.59.168.29'
+database_host: '178.62.104.169'
+app_env:
+  SMTP_ADDRESS: "localhost"
+  SMTP_PORT: "1025"
+  LOG_TO_SYSLOG: yes
+newrelic_sysmond:
+  enabled: false
+  license_key: "test"
+loggly:
+  tag: "example@test"
+  target: "example.loggly.com"

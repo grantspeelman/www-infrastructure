@@ -19,12 +19,12 @@
    - nginx-extras
    - passenger
 
-- name: uncomment passenger_root
-  replace: dest=/etc/nginx/nginx.conf regexp='#\spassenger_root' replace=passenger_root
+- name: enable passenger in nginx.conf
+  replace: dest=/etc/nginx/nginx.conf regexp='# include /etc/nginx/passenger.conf;' replace='include /etc/nginx/passenger.conf;'
   notify: nginx reload
 
 - name: set passenger_max_pool_size to 3
-  lineinfile: dest=/etc/nginx/nginx.conf insertafter="passenger_root" regexp="passenger_max_pool_size" line="passenger_max_pool_size 3;"
+  lineinfile: dest=/etc/nginx/passenger.conf regexp="passenger_max_pool_size" line="passenger_max_pool_size 3;"
   notify: nginx reload
 
 - name: add passenger conf to ngnix sites-available
