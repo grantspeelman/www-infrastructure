@@ -3,7 +3,7 @@
   sudo: yes
   roles:
     # - postgresql
-    - postgresql-vagrant
+    # - postgresql-vagrant
     - loggly
     - common
     - app-deployment
