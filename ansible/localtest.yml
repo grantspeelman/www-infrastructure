@@ -7,6 +7,5 @@
     - loggly
     - common
     - app-deployment
-    - laggyluke.newrelic-sysmond
-    # - app-runner
-    # - app-runner-vagrant
+    - app-runner
+    - app-runner-vagrant
