@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  sudo: yes
   roles:
     # - postgresql
     # - postgresql-vagrant
