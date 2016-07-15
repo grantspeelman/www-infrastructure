@@ -1,7 +1,5 @@
 # My Grocery Price Book infrastructure
 
-[![Build Status](https://semaphoreci.com/api/v1/my-grocery-price-book/www-infrastructure/branches/master/badge.svg)](https://semaphoreci.com/my-grocery-price-book/www-infrastructure)
-
 ## Provisioning
 
 to install software and configure the server you require at least `ansible 2.0.0` installed
