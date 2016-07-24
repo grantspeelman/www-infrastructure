@@ -19,8 +19,12 @@
    - nginx-extras
    - passenger
 
-- name: enable passenger in nginx.conf
-  replace: dest=/etc/nginx/nginx.conf regexp='# include /etc/nginx/passenger.conf;' replace='include /etc/nginx/passenger.conf;'
+- name: start nginx
+  service: name=nginx state=started
+  sudo: yes
+
+- name: uncomment passenger conf
+  replace: dest=/etc/nginx/nginx.conf regexp='#\sinclude /etc/nginx/passenger.conf;' replace='include /etc/nginx/passenger.conf;'
   notify: nginx reload
 
 - name: set passenger_max_pool_size to 3

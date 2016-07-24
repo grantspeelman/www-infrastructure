@@ -1,8 +1,8 @@
 [production-app]
-139.59.168.29
+app1.my-grocery-price-book.co.za
 
 [production-db]
-178.62.104.169
+db.my-grocery-price-book.co.za
 
 [production:children]
 production-app

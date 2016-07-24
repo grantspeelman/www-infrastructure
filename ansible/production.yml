@@ -15,5 +15,4 @@
 - hosts: production-app
   remote_user: root
   roles:
-    - app-deployment
     - app-runner

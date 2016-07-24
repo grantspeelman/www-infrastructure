@@ -1,1 +1,2 @@
 app_deploy_name: 'my_grocery_price_book_www'
+app_ruby_version: 'system'

@@ -2,7 +2,7 @@ development:
   adapter: postgresql
   encoding: unicode
   database: development
-  username: vagrant
+  username: ubuntu
   host: {{database_host}}
   pool: 5
 
@@ -10,6 +10,6 @@ test:
   adapter: postgresql
   encoding: unicode
   database: test
-  username: vagrant
+  username: ubuntu
   host: {{database_host}}
   pool: 5

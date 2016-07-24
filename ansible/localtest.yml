@@ -1,12 +1,10 @@
 ---
 - hosts: all
-  sudo: yes
   roles:
-    - postgresql
-    - postgresql-vagrant
+    # - postgresql
+    # - postgresql-vagrant
+    # - common
     - loggly
-    - common
     - app-deployment
-    - laggyluke.newrelic-sysmond
-    # - app-runner
-    # - app-runner-vagrant
+    - app-runner
+    - app-runner-vagrant

@@ -16,7 +16,7 @@
 - name: load database.yml
   template: src=vagrant/config/database.yml dest=/vagrant/config/database.yml
   become: no
-  notify: rake db:setup
+  notify: database setup
 
 - name: add dev.conf to ngnix sites-available
   template: src=etc/nginx/sites-available/dev.conf dest=/etc/nginx/sites-available/dev.conf owner=root group=root mode=0644

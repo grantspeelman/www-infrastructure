@@ -7,6 +7,3 @@
 
 - name: nginx reload
   service: name=nginx state=reloaded
-
-- name: switch ruby
-  command: ruby-switch --set ruby2.3
