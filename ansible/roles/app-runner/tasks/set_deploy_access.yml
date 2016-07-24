@@ -1,0 +1,5 @@
+- name: Deploy ssh directory is present
+  file: path=/home/{{app_deploy_name}}/.ssh owner={{app_deploy_name}} group={{app_deploy_name}} mode=0700 state=directory
+
+- name: deploy user access
+  copy: src=_deploy_home_/.ssh/authorized_keys dest=/home/{{app_deploy_name}}/.ssh/authorized_keys owner={{app_deploy_name}} group={{app_deploy_name}} mode=0600

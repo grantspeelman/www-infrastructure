@@ -1,3 +1,3 @@
-ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+ask :branch, 'master'
 
-server '192.168.30.15', user: 'my_grocery_price_book_www', roles: %w{app db web}
+server 'www.groc-test', user: 'my_grocery_price_book_www', roles: %w{app db web}

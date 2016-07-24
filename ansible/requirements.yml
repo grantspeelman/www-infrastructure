@@ -1,0 +1,7 @@
+- src: grantspeelman.ruby-deployment
+  version: v1.1.2
+
+- src: azavea.swapfile
+
+- src: laggyluke.newrelic-sysmond
+  version: v0.1.0

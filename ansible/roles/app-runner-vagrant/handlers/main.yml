@@ -1,5 +1,5 @@
-- name: rake db:setup
-  command: bundle exec rake db:setup
+- name: database setup
+  command: bin/setup
   sudo: no
   args:
     chdir: /vagrant

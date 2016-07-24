@@ -1,16 +1,15 @@
 ---
-- hosts: db
-  remote_user: vagrant
-  sudo: yes
+- hosts: all
+  become: yes
   roles:
     - azavea.swapfile
+- hosts: db
+  become: yes
+  roles:
     - postgresql
     - postgresql-vagrant
 - hosts: app
-  remote_user: vagrant
-  sudo: yes
+  become: yes
   roles:
-    - azavea.swapfile
-    - app-deployment
     - app-runner
     - app-runner-vagrant

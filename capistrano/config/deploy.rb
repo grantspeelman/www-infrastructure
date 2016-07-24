@@ -27,7 +27,7 @@ set :log_level, :info
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, fetch(:linked_files, []).push('config/database.yml')
+# set :linked_files, fetch(:linked_files, []).push('config/database.yml')
 
 # Default value for linked_dirs is []
 # set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
@@ -46,20 +46,6 @@ namespace :deploy do
     on roles(:db) do
       within release_path do
         execute :rake, 'db:seed'
-      end
-    end
-  end
-  after :finished, :newrelic_deploy do
-    on roles(:db) do
-      within release_path do
-        execute :bundle, 'exec newrelic deployments', "--user=#{fetch :rollbar_user}", "--revision=#{fetch :current_revision}"
-      end
-    end
-  end
-  after :finished, :rollbar_deploy do
-    on roles(:db) do
-      within release_path do
-        execute :rake, 'rollbar:deploy', "LOCAL_USER=#{fetch :rollbar_user}", "ROLLBAR_ENV=#{fetch :stage}", "REVISION=#{fetch :current_revision}"
       end
     end
   end

@@ -9,10 +9,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  # Every Vagrant virtual environment requires a box to build off of.
-  main_config.vm.box = 'ubuntu/trusty64' 
-
   main_config.vm.define 'db' do |config|
+    # Every Vagrant virtual environment requires a box to build off of.
+    config.vm.box = 'ubuntu/trusty64'
+
     # Create a forwarded port mapping which allows access to a specific port
     # within the machine from a port on the host machine. In the example below,
     # accessing "localhost:8080" will access port 80 on the guest machine.
@@ -52,6 +52,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
   end
 
   main_config.vm.define 'app', primary: true do |config|
+    # Every Vagrant virtual environment requires a box to build off of.
+    config.vm.box = 'ubuntu/xenial64'
+
     config.vm.hostname = "grocdev"
 
     config.dns.tlds = %w(groc-dev groc-test)
@@ -88,6 +91,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
     # Example for VirtualBox:
     #
     config.vm.provider 'virtualbox' do |v|
+      v.name = "www-infrastructure-app"
       # Don't boot with headless mode
       # vb.gui = true
 
@@ -98,6 +102,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
       v.cpus = 2
     end
   end
+
+  # This should already be in the box.
+  $script = <<SCRIPT
+  apt-get -qq install python python-pycurl python-apt
+SCRIPT
+
+  main_config.vm.provision "shell", inline: $script
 
   main_config.vm.provision 'ansible' do |ansible|
     ansible.playbook = 'ansible/vagrant.yml'

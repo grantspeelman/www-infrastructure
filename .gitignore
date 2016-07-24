@@ -5,3 +5,10 @@ capistrano/vendor/bundle
 
 ansible/group_vars/production.yml
 ansible/ansible.log
+ansible/roles/grantspeelman.ruby-deployment
+ansible/roles/laggyluke.newrelic-sysmond
+ansible/roles/azavea.swapfile
+ansible/*.retry
+
+terraform/**/*.tfvars
+terraform/**/*.plan

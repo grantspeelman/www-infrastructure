@@ -3,9 +3,11 @@
 ## Provisioning
 
 to install software and configure the server you require at least `ansible 2.0.0` installed
+`python` has to be installed on the host ubuntu machines 
 
 ```
   cd ansible
+  ansible-galaxy install -r requirements.yml
   ansible-playbook -i production production.yml # for production
 ```
 
@@ -33,6 +35,9 @@ Make sure to clone my-grocery-price-book/www and my-grocery-price-book/www-infra
   git clone git@github.com:my-grocery-price-book/www.git
   git clone git@github.com:my-grocery-price-book/www-infrastructure.git
   cd www-infrastructure
+  cd ansible
+  ansible-galaxy install -r requirements.yml
+  cd ..
   vagrant dns --install
   vagrant up # takes about 30 minutes then visit http://www.groc-dev/ in your browser
   vagrant ssh

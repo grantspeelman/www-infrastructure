@@ -1,5 +1,5 @@
-- name: create development pg vagrant user
-  postgresql_user: name=vagrant role_attr_flags=CREATEDB,SUPERUSER
+- name: create development pg ubuntu user
+  postgresql_user: name=ubuntu role_attr_flags=CREATEDB,SUPERUSER
   become: yes
   become_user: postgres
 
