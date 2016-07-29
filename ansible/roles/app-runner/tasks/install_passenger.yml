@@ -1,5 +1,11 @@
-- name: Remove apache2
-  apt: name=apache2 state=absent
+- name: Remove ngnix
+  apt: name={{item}} state=absent
+  with_items:
+   - ngnix
+   - nginx-extras
+
+- name: Remove nginx-extras
+  apt: name=nginx-extras state=absent
 
 - name: Add key for passenger
   apt_key: keyserver=keyserver.ubuntu.com id=561F9B9CAC40B2F7
@@ -13,36 +19,43 @@
 - name: Apt add passenger to list
   apt_repository: repo='deb https://oss-binaries.phusionpassenger.com/apt/passenger {{ansible_distribution_release}} main' state=present update_cache=yes
 
-- name: Install nginx
+- name: Install apache2, passenger
   action: apt pkg={{ item }} state=installed
   with_items:
-   - nginx-extras
-   - passenger
+   - apache2
+   - libapache2-mod-passenger
 
-- name: start nginx
-  service: name=nginx state=started
-  sudo: yes
+- name: enable the Passenger Apache module
+  apache2_module: state=present name=passenger
 
-- name: uncomment passenger conf
-  replace: dest=/etc/nginx/nginx.conf regexp='#\sinclude /etc/nginx/passenger.conf;' replace='include /etc/nginx/passenger.conf;'
-  notify: nginx reload
+- name: create pagespeed cache folder
+  file: dest=/var/ngx_pagespeed_cache recurse=yes mode=0755 state=directory owner=www-data group=www-data
 
-- name: set passenger_max_pool_size to 3
-  lineinfile: dest=/etc/nginx/passenger.conf regexp="passenger_max_pool_size" line="passenger_max_pool_size 3;"
-  notify: nginx reload
+- name: Install mod-pagespeed
+  action: apt deb="https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb"
+  notify: apache2 restart
 
-- name: add passenger conf to ngnix sites-available
-  template: src=etc/nginx/sites-available/_passenger_site.conf dest=/etc/nginx/sites-available/{{app_deploy_name}}.conf owner=root group=root mode=0644
-  notify: nginx reload
+- name: enable the Apache modules
+  apache2_module: state=present name={{item}}
+  notify: apache2 restart
+  with_items:
+    - headers
+    - expires
+    - passenger
+    - pagespeed
 
-- name: link _passenger_site.conf to ngnix sites-enabled
-  file: src=/etc/nginx/sites-available/{{app_deploy_name}}.conf dest=/etc/nginx/sites-enabled/{{app_deploy_name}}.conf owner=root group=root state=link
-  notify: nginx reload
+- name: add passenger conf to apache2 conf-available
+  copy: src=etc/apache2/conf-available/passenger.conf dest=/etc/apache2/conf-available/passenger.conf owner=root group=root mode=0644
+  notify: apache2 restart
 
-- name: add redirect conf to ngnix sites-available
-  template: src=etc/nginx/sites-available/_redirect.conf dest=/etc/nginx/sites-available/{{app_deploy_name}}_redirect.conf owner=root group=root mode=0644
-  notify: nginx reload
+- name: link passenger.conf to apache2 conf-enabled
+  file: src=/etc/apache2/conf-available/passenger.conf dest=/etc/apache2/conf-enabled/passenger.conf owner=root group=root state=link
+  notify: apache2 restart
 
-- name: link _passenger_site.conf to ngnix sites-enabled
-  file: src=/etc/nginx/sites-available/{{app_deploy_name}}_redirect.conf dest=/etc/nginx/sites-enabled/{{app_deploy_name}}_redirect.conf owner=root group=root state=link
-  notify: nginx reload
+- name: add site conf to apache2 sites-available
+  template: src=etc/apache2/sites-available/_passenger_site.conf dest=/etc/apache2/sites-available/{{app_deploy_name}}.conf owner=root group=root mode=0644
+  notify: apache2 restart
+
+- name: link site.conf to ngnix sites-enabled
+  file: src=/etc/apache2/sites-available/{{app_deploy_name}}.conf dest=/etc/apache2/sites-enabled/{{app_deploy_name}}.conf owner=root group=root state=link
+  notify: apache2 restart
