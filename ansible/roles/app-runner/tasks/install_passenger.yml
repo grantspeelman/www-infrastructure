@@ -31,9 +31,19 @@
 - name: create pagespeed cache folder
   file: dest=/var/ngx_pagespeed_cache recurse=yes mode=0755 state=directory owner=www-data group=www-data
 
+- stat: path=/etc/apache2/mods-available/pagespeed.conf
+  register: pagespeed_conf_file
+
 - name: Install mod-pagespeed
-  action: apt deb="https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb"
+  apt: deb="https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb"
   notify: apache2 restart
+  when: pagespeed_conf_file.stat.exists == False
+
+- name: disable the pagespeed Apache modules until i can figure it out
+  apache2_module: state=absent name={{item}}
+  notify: apache2 restart
+  with_items:
+    - pagespeed
 
 - name: enable the Apache modules
   apache2_module: state=present name={{item}}
@@ -42,7 +52,6 @@
     - headers
     - expires
     - passenger
-    - pagespeed
 
 - name: add passenger conf to apache2 conf-available
   copy: src=etc/apache2/conf-available/passenger.conf dest=/etc/apache2/conf-available/passenger.conf owner=root group=root mode=0644

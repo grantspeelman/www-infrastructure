@@ -1,6 +1,6 @@
 # this is for vagrant
-redirect_server_name: "*.groc-old"
-server_name: "*.groc-test"
+redirect_server_name: "www.groc-old"
+server_name: "www.groc-test"
 database_host: '192.168.30.14'
 app_env:
   DATABASE_URL: "postgresql://192.168.30.14/my_grocery_price_book_www?pool=5"
