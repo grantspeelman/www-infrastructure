@@ -62,6 +62,9 @@
   file: src=/etc/apache2/conf-available/passenger.conf dest=/etc/apache2/conf-enabled/passenger.conf owner=root group=root state=link
   notify: apache2 restart
 
+- stat: path=/etc/letsencrypt/live/{{server_name}}/privkey.pem
+  register: privkey_pem_file
+
 - name: add site conf to apache2 sites-available
   template: src=etc/apache2/sites-available/_passenger_site.conf dest=/etc/apache2/sites-available/{{app_deploy_name}}.conf owner=root group=root mode=0644
   notify: apache2 restart
