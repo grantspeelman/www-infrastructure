@@ -52,6 +52,7 @@
     - headers
     - expires
     - passenger
+    - ssl
 
 - name: add passenger conf to apache2 conf-available
   copy: src=etc/apache2/conf-available/passenger.conf dest=/etc/apache2/conf-available/passenger.conf owner=root group=root mode=0644
@@ -65,6 +66,14 @@
   template: src=etc/apache2/sites-available/_passenger_site.conf dest=/etc/apache2/sites-available/{{app_deploy_name}}.conf owner=root group=root mode=0644
   notify: apache2 restart
 
-- name: link site.conf to ngnix sites-enabled
+- name: link site.conf to apache2 sites-enabled
   file: src=/etc/apache2/sites-available/{{app_deploy_name}}.conf dest=/etc/apache2/sites-enabled/{{app_deploy_name}}.conf owner=root group=root state=link
+  notify: apache2 restart
+
+- name: add redirect conf to apache2 sites-available
+  template: src=etc/apache2/sites-available/_redirect_site.conf dest=/etc/apache2/sites-available/{{app_deploy_name}}_redirect.conf owner=root group=root mode=0644
+  notify: apache2 restart
+
+- name: link redirect.conf to apache2 sites-enabled
+  file: src=/etc/apache2/sites-available/{{app_deploy_name}}_redirect.conf dest=/etc/apache2/sites-enabled/{{app_deploy_name}}_redirect.conf owner=root group=root state=link
   notify: apache2 restart

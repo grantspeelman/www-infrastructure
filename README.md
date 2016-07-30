@@ -6,6 +6,8 @@
 to install software and configure the server you require at least `ansible 2.0.0` installed
 `python` has to be installed on the host ubuntu machines 
 
+https has been setup manually using [certbot](https://certbot.eff.org/#ubuntuxenial-apache)
+
 ```
   cd ansible
   ansible-galaxy install -r requirements.yml
