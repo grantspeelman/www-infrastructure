@@ -3,6 +3,7 @@
   become: yes
   roles:
     - azavea.swapfile
+    - laggyluke.newrelic-sysmond
 - hosts: db
   become: yes
   roles:
