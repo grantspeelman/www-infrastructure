@@ -1,2 +1,4 @@
 do_api_token = ""
 ssh_fingerprint = ""
+cloudflare_token = ""
+cloudflare_email = ""
