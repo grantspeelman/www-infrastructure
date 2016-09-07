@@ -57,9 +57,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
 
     config.vm.hostname = "grocdev"
 
-    config.dns.tlds = %w(groc-dev groc-test)
+    config.dns.tlds = %w(groc-test groc.dev)
 
-    config.dns.patterns = [/^www\.groc-dev$/,/^www\.groc-test$/]
+    config.dns.patterns = [/^.*\.groc-test$/,/^.*\.groc\.dev/]
     # Create a forwarded port mapping which allows access to a specific port
     # within the machine from a port on the host machine. In the example below,
     # accessing "localhost:8080" will access port 80 on the guest machine.

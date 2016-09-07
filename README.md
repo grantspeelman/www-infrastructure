@@ -42,9 +42,9 @@ Make sure to clone my-grocery-price-book/www and my-grocery-price-book/www-infra
   ansible-galaxy install -r requirements.yml
   cd ..
   vagrant dns --install
-  vagrant up # takes about 30 minutes then visit http://www.groc-dev/ in your browser
+  vagrant up # takes about 30 minutes then visit http://www.groc.dev/ in your browser
   vagrant ssh
 ```
 
-Once the setup is complete you should be able to visit [www.groc-dev](http://www.groc-dev/) on your local machine.
-Mailcatcher will running on [www.groc-dev:1080](http://www.groc-dev:1080/)
+Once the setup is complete you should be able to visit [www.groc.dev](http://www.groc.dev/) on your local machine.
+Mailcatcher will running on [www.groc-dev:1080](http://www.groc.dev:1080/)
