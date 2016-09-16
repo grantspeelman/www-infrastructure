@@ -1,10 +1,13 @@
 - name: add user gems path to .bashrc
   lineinfile: dest=/home/ubuntu/.bashrc line="PATH=\"$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH\""
 
-- name: Install brakeman, rubocop and rubycritic gems
-  gem: name={{item}} state=present user_install=yes
+- name: Install gems tools
+  gem: name={{item}} state=latest user_install=yes
   sudo: no
   with_items:
     - brakeman
     - rubocop
     - rubycritic
+    - overcommit
+    - reek
+    - flay
