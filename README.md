@@ -28,7 +28,7 @@ https has been setup manually using [certbot](https://certbot.eff.org/#ubuntuxen
 * install ansible (For MAC: `brew up && brew install ansible` or checkout [pip install](http://docs.ansible.com/ansible/intro_installation.html#latest-releases-via-pip))
 * install [virtualbox](https://www.virtualbox.org/wiki/Downloads)
 * install [vagrant](https://www.vagrantup.com/downloads.html)
-* install vagrant-dns `vagrant plugin install vagrant-dns`
+* install vagrant vagrant-hostsupdater plugin `vagrant plugin install vagrant-hostsupdater`
 
 ###### Vagrant setup steps (after software installation)
 
@@ -41,10 +41,9 @@ Make sure to clone my-grocery-price-book/www and my-grocery-price-book/www-infra
   cd ansible
   ansible-galaxy install -r requirements.yml
   cd ..
-  vagrant dns --install
   vagrant up # takes about 30 minutes then visit http://www.groc.dev/ in your browser
   vagrant ssh
 ```
 
 Once the setup is complete you should be able to visit [www.groc.dev](http://www.groc.dev/) on your local machine.
-Mailcatcher will running on [www.groc-dev:1080](http://www.groc.dev:1080/)
+Mailcatcher will running on [www.groc.dev:1080](http://www.groc.dev:1080/)

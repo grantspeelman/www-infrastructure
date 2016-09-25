@@ -9,6 +9,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
+  main_config.hostsupdater.remove_on_suspend = false
+
   main_config.vm.define 'db' do |config|
     # Every Vagrant virtual environment requires a box to build off of.
     config.vm.box = 'ubuntu/trusty64'
@@ -55,11 +57,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
     # Every Vagrant virtual environment requires a box to build off of.
     config.vm.box = 'ubuntu/xenial64'
 
-    config.vm.hostname = "grocdev"
-
-    config.dns.tlds = %w(groc-test groc.dev)
-
-    config.dns.patterns = [/^.*\.groc-test$/,/^.*\.groc\.dev/]
+    config.vm.hostname = "www.groc.dev"
+    config.hostsupdater.aliases = ["www.groc-test"]
     # Create a forwarded port mapping which allows access to a specific port
     # within the machine from a port on the host machine. In the example below,
     # accessing "localhost:8080" will access port 80 on the guest machine.
