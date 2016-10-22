@@ -9,7 +9,7 @@
 - include: mailcatcher.yml
 
 - name: bundle install
-  bundler: state=present gemfile=/vagrant/Gemfile
+  bundler: state=present gemfile=/vagrant/Gemfile executable=~/.gem/ruby/2.3.0/bin/bundle
   become: no
 
 - name: load database.yml
