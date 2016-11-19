@@ -1,9 +1,14 @@
-[production-app]
-app1.my-grocery-price-book.co.za
+[production-apps]
+app-runner1.my-grocery-price-book.co.za
+app-runner2.my-grocery-price-book.co.za
 
 [production-db]
 db.my-grocery-price-book.co.za
 
+[production-web]
+web-balancer.my-grocery-price-book.co.za
+
 [production:children]
-production-app
+production-apps
 production-db
+production-web

@@ -41,6 +41,15 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log')
 
 set :rollbar_user, Proc.new { ENV['USER'] || ENV['USERNAME'] }
 
+namespace :service do
+  desc 'Start my_grocery_price_book_www via upstart'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      sudo "~/bin/restart-app.sh"
+    end
+  end
+end
+
 namespace :deploy do
   after :migrate, :db_seed do
     on roles(:db) do
@@ -50,3 +59,5 @@ namespace :deploy do
     end
   end
 end
+
+after "deploy:publishing", "service:restart"

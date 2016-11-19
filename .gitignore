@@ -12,3 +12,6 @@ ansible/*.retry
 
 terraform/**/*.tfvars
 terraform/**/*.plan
+.idea/
+ansible/callback_plugins/profile_tasks.pyc
+ubuntu-xenial-16.04-cloudimg-console.log

@@ -1,0 +1,46 @@
+- name: Remove apache2
+  apt: name=apache2 state=absent
+
+- name: Remove ngnix
+  apt: name={{item}} state=absent
+  with_items:
+   - ngnix
+   - nginx-extras
+
+- name: Install haproxy
+  action: apt pkg={{ item }} state=installed
+  with_items:
+   - haproxy
+
+- name: enable haproxy
+  lineinfile: dest=/etc/default/haproxy regexp="ENABLED=" line="ENABLED=1"
+
+- name: load haproxy.cfg
+  template: src=etc/haproxy/haproxy.cfg dest=/etc/haproxy/haproxy.cfg owner=root group=root
+  notify: haproxy reload
+
+- name: start haproxy
+  service: name=haproxy state=started
+
+#- name: link _passenger_site.conf to ngnix sites-enabled
+#  file: src=/etc/nginx/sites-available/{{app_deploy_name}}.conf dest=/etc/nginx/sites-enabled/{{app_deploy_name}}.conf owner=root group=root state=link
+#  notify: nginx reload
+#
+#- name: add redirect conf to ngnix sites-available
+#  template: src=etc/nginx/sites-available/_redirect.conf dest=/etc/nginx/sites-available/{{app_deploy_name}}_redirect.conf owner=root group=root mode=0644
+#  notify: nginx reload
+#
+#- name: link _passenger_site.conf to ngnix sites-enabled
+#  file: src=/etc/nginx/sites-available/{{app_deploy_name}}_redirect.conf dest=/etc/nginx/sites-enabled/{{app_deploy_name}}_redirect.conf owner=root group=root state=link
+#  notify: nginx reload
+#
+#- name: enable gzip in nginx
+#  replace: dest=/etc/nginx/nginx.conf regexp="# {{item}}" replace={{item}}
+#  notify: nginx reload
+#  with_items:
+#    - gzip_vary
+#    - gzip_proxied
+#    - gzip_comp_level
+#    - gzip_buffers
+#    - gzip_http_version
+#    - gzip_types
