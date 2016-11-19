@@ -1,9 +1,0 @@
-# this is for vagrant
-redirect_server_name: "www.groc-old"
-server_name: "www.groc-test"
-database_host: '192.168.30.14'
-app_env:
-  DATABASE_URL: "postgresql://192.168.30.14/my_grocery_price_book_www?pool=5"
-  SMTP_ADDRESS: "localhost"
-  SMTP_PORT: "1025"
-  SECRET_KEY_BASE: "479d58e5fb832402b0535160c6c773a229f8f6741080764366fdfae9676f78b902f488dc851c3647a7b5ef58c8a49db33f234c0c90b6073164f04ca46b2223e8"

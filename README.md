@@ -3,10 +3,8 @@
 
 ## Provisioning
 
-to install software and configure the server you require at least `ansible 2.0.0` installed
+to install software and configure the server you require at least `ansible 2.2.0` installed
 `python` has to be installed on the host ubuntu machines 
-
-https has been setup manually using [certbot](https://certbot.eff.org/#ubuntuxenial-apache)
 
 ```
   cd ansible
@@ -29,6 +27,7 @@ https has been setup manually using [certbot](https://certbot.eff.org/#ubuntuxen
 * install [virtualbox](https://www.virtualbox.org/wiki/Downloads)
 * install [vagrant](https://www.vagrantup.com/downloads.html)
 * install vagrant vagrant-hostsupdater plugin `vagrant plugin install vagrant-hostsupdater`
+* install vagrant vagrant-hosts plugin `vagrant plugin install vagrant-hosts`
 
 ###### Vagrant setup steps (after software installation)
 
@@ -41,9 +40,10 @@ Make sure to clone my-grocery-price-book/www and my-grocery-price-book/www-infra
   cd ansible
   ansible-galaxy install -r requirements.yml
   cd ..
-  vagrant up # takes about 30 minutes then visit http://www.groc.dev/ in your browser
+  vagrant up # takes about 30 minutes
   vagrant ssh
+  cd /vagrant
+  bin/rails s -b 0.0.0.0 # then visit http://app.groc.vm:3000/ in your browser
 ```
 
-Once the setup is complete you should be able to visit [www.groc.dev](http://www.groc.dev/) on your local machine.
-Mailcatcher will running on [www.groc.dev:1080](http://www.groc.dev:1080/)
+Mailcatcher will running on [app.groc.vm:1080](http://app.groc.vm:1080/)

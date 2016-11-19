@@ -12,7 +12,12 @@
   roles:
     - postgresql
 
-- hosts: production-app
+- hosts: production-apps
   remote_user: root
   roles:
     - app-runner
+
+- hosts: production-web
+  remote_user: root
+  roles:
+    - web

@@ -4,6 +4,6 @@
   become_user: postgres
 
 - name: create pg user
-  postgresql_user: name={{app_deploy_name}} role_attr_flags=CREATEDB
+  postgresql_user: name={{app_deploy_name}} role_attr_flags=CREATEDB,SUPERUSER
   become: yes
   become_user: postgres
