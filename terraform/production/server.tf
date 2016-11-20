@@ -45,7 +45,7 @@ resource "cloudflare_record" "www" {
     domain = "my-grocery-price-book.co.za"
     type = "A"
     name = "www"
-    value = "${digitalocean_droplet.app1.ipv4_address}"
+    value = "${digitalocean_droplet.web-balancer.ipv4_address}"
     proxied = true
 }
 
@@ -70,14 +70,6 @@ resource "cloudflare_record" "app-runner2" {
   type = "A"
   name = "app-runner2"
   value = "${digitalocean_droplet.app-runner2.ipv4_address}"
-  proxied = false
-}
-
-resource "cloudflare_record" "web-balancer" {
-  domain = "my-grocery-price-book.co.za"
-  type = "A"
-  name = "web-balancer"
-  value = "${digitalocean_droplet.web-balancer.ipv4_address}"
   proxied = false
 }
 
