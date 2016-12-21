@@ -5,11 +5,14 @@ database_host: db.groc.vm
 app_nodes:
   - name: app
     domain: app.groc.vm
+    ip: 192.168.30.15
   - name: app2
     domain: app2.groc.vm
+    ip: 192.168.30.17
 app_env:
   DATABASE_URL: "postgresql://{{database_host}}/{{app_deploy_name}}?pool=5"
   SMTP_ADDRESS: "localhost"
   SMTP_PORT: "1025"
   SECRET_KEY_BASE: "479d58e5fb832402b0535160c6c773a229f8f6741080764366fdfae9676f78b902f488dc851c3647a7b5ef58c8a49db33f2"
   RAILS_SERVE_STATIC_FILES: "true"
+  ROLLBAR_ENV: "vagrant"

@@ -20,4 +20,4 @@
 - hosts: production-web
   remote_user: root
   roles:
-    - web
+    - web-runner

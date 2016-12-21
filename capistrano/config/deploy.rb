@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.4.1'
 
 set :ssh_options, {forward_agent: true}
 
@@ -31,7 +31,7 @@ set :log_level, :info
 
 # Default value for linked_dirs is []
 # set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
-set :linked_dirs, fetch(:linked_dirs, []).push('log')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'client/node_modules')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -50,12 +50,37 @@ namespace :service do
   end
 end
 
+namespace :bundler do
+  desc 'install npm'
+  after :install, :npm_install do
+    on roles(:web) do
+      execute "mkdir -p ~/tmp"
+      execute "cd #{release_path} && npm run postinstall"
+    end
+  end
+end
+
 namespace :deploy do
   after :migrate, :db_seed do
     on roles(:db) do
       within release_path do
         execute :rake, 'db:seed'
       end
+    end
+  end
+
+  after :compile_assets, :copy_manifest do
+    on roles(:web) do
+      download! "#{release_path}/public/assets", "./", recursive: true
+    end
+    on roles(:app) do
+      upload! "./assets", "#{release_path}/public/", recursive: true
+    end
+    on roles(:web) do
+      download! "#{release_path}/app/assets/webpack", "./", recursive: true
+    end
+    on roles(:app) do
+      upload! "./webpack", "#{release_path}/app/assets/", recursive: true
     end
   end
 end
