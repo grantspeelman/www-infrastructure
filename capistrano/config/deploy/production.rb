@@ -1,4 +1,6 @@
-server 'app1.my-grocery-price-book.co.za', user: 'my_grocery_price_book_www', roles: %w{app db web}
+server 'app-runner1.my-grocery-price-book.co.za', user: 'my_grocery_price_book_www', roles: %w{app db}
+server 'app-runner2.my-grocery-price-book.co.za', user: 'my_grocery_price_book_www', roles: %w{app}
+server 'web-balancer.my-grocery-price-book.co.za', user: 'my_grocery_price_book_www', roles: %w{web}
 
 
 namespace :deploy do

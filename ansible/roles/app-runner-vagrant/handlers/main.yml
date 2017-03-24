@@ -1,6 +1,2 @@
-- name: database setup
-  command: bin/setup
-  sudo: no
-  args:
-    chdir: /vagrant
-
+- name: apache2 reload
+  service: name=apache2 state=reloaded

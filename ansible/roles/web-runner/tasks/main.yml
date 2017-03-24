@@ -1,0 +1,10 @@
+- name: Remove apache2
+  apt: name=apache2 state=absent
+
+- name: remove haproxy
+  action: apt pkg={{ item }} state=absent
+  with_items:
+   - haproxy
+
+- include: install_nginx.yml
+- include: install_node.yml

@@ -1,9 +1,9 @@
-- name: installing nodejs for eslint
+- name: installing nodejs
   apt: name={{item}} state=present
   with_items:
     - nodejs
-    - nodejs-legacy
     - npm
+    - nodejs-legacy
 
 - name: Install "eslint" node.js package globally.
   npm: name={{item}} global=yes # for pronto-eslint

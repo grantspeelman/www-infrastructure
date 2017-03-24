@@ -1,6 +1,6 @@
 ---
-- name: apache2 restart
-  service: name=apache2 state=restarted
+- name: app restart
+  service: name={{app_deploy_name}} state=restarted
 
-- name: apache2 reload
-  service: name=apache2 state=reloaded
+- name: enable linger
+  command: loginctl enable-linger {{app_deploy_name}}

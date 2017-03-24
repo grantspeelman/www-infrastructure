@@ -8,19 +8,22 @@
 - include: node_tools.yml
 - include: mailcatcher.yml
 
+- name: installing phantomjs dependencies
+  apt: name={{item}} state=present
+  with_items:
+    - libfontconfig
+
 - name: bundle install
-  bundler: state=present gemfile=/vagrant/Gemfile
+  bundler: state=present gemfile=/vagrant/Gemfile executable=~/.gem/ruby/2.3.0/bin/bundle
   become: no
 
 - name: load database.yml
   template: src=vagrant/config/database.yml dest=/vagrant/config/database.yml
   become: no
-  notify: database setup
 
-- name: add dev.conf to ngnix sites-available
-  template: src=etc/apache2/sites-available/dev.conf dest=/etc/apache2/sites-available/dev.conf owner=root group=root mode=0644
-  notify: apache2 reload
-
-- name: link dev.conf to ngnix sites-enabled
-  file: src=/etc/apache2/sites-available/dev.conf dest=/etc/apache2/sites-enabled/dev.conf owner=root group=root state=link
-  notify: apache2 reload
+- name: database setup
+  shell: /bin/bash -l -c "bin/setup > ~/bin_setup.txt"
+  become: no
+  args:
+    chdir: /vagrant
+    creates: ~/bin_setup.txt
