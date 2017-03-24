@@ -37,7 +37,7 @@ resource "cloudflare_record" "www" {
     domain = "my-grocery-price-book.co.za"
     type = "A"
     name = "www"
-    value = "${digitalocean_droplet.web-balancer.ipv4_address}"
+    value = "139.59.184.144"
     proxied = true
 }
 
